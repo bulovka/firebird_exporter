@@ -327,6 +327,7 @@ fbserver.company.com:db_name,sysdba,pass
 
 ```
 ├── filestat.yaml
+├── web-config.yml
 └── filestat_exporter.exe
 ```
 
@@ -339,8 +340,14 @@ exporter:
 
   files:
       - patterns: ['*.log']
-
 ```
+
+**web-config.yml**
+```
+basic_auth_users:
+  admin: <bcrypt-hash-of-pass>
+```
+
 
 ## 3. Prometheus
  
@@ -349,10 +356,11 @@ exporter:
 ...
   - job_name: filestat_exporter
     metrics_path: /metrics
-    scrape_timeout: 1m
-    scrape_interval: 1m
     static_configs:
       - targets: [ 'xyz:9943' ]
+    basic_auth:
+      username: 'admin'
+      password: 'pass'
 
   - job_name: 'script_exporter'
     metrics_path: /probe
@@ -363,6 +371,9 @@ exporter:
       - targets:
          - fbserver.company.com:/data/vol2/data/db_name.gdb
          - fbserver.company.com:db_name
+    basic_auth:
+      username: 'admin'
+      password: 'pass'
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
