@@ -360,7 +360,7 @@ basic_auth_users:
       - targets: [ 'xyz:9943' ]
     basic_auth:
       username: 'admin'
-      password: 'pass'
+      password_file: 'filestat_exporter.password_file'
 
   - job_name: 'script_exporter'
     metrics_path: /probe
@@ -373,7 +373,7 @@ basic_auth_users:
          - fbserver.company.com:db_name
     basic_auth:
       username: 'admin'
-      password: 'pass'
+      password_file: 'script_exporter.password_file'
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
