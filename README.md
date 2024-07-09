@@ -15,7 +15,7 @@ The script and Grafana dashboard have been tested with `firebird2.5.2`, `firebir
 ![Screenshot from 2024-06-23 13 39 12](https://github.com/ldrahnik/firebird_exporter/assets/3233644/7f98ab59-26be-4fd0-8151-879ad5f8f0e5)
 
 - Metrics of backup `gbak` logs
-  
+
 ![Screenshot from 2024-06-23 14 31 32](https://github.com/ldrahnik/firebird_exporter/assets/3233644/14dec613-5dc3-455b-a4a8-79f3c6556f67)
 
 - Custom grafana dashboard
@@ -184,7 +184,7 @@ def print_vector(cursor, value = 1):
 
    for row in cursor.fetchall():
 
-      vector_names_and_values = [field[0].lower() + "=\"" + str(row[i]).replace("\r\n", "").replace("\n", "") + "\"" for i, field in enumerate(cursor.description) if i > 0 and not field[0].lower().startswith('as_value')]
+      vector_names_and_values = [field[0].lower() + '="' + str(row[i]).replace('\r\n', '').replace('\n', '').replace('"', '\\"') + '"' for i, field in enumerate(cursor.description) if i > 0 and not field[0].lower().startswith('as_value')]
       vector_as_value = [str(row[i]) for i, field in enumerate(cursor.description) if i > 0 and field[0].lower().startswith('as_value')]
 
       if len(vector_as_value):
@@ -304,7 +304,7 @@ with connect(db_name, user=db_user, password=db_password) as con:
    print_counter(cursor)
 
    # vectors
-   cursor.execute("""SELECT 'transaction_duration_seconds' AS vector_name, mt.MON$TRANSACTION_ID AS transaction_id,CAST(mt.MON$TIMESTAMP as TIMESTAMP) as transaction_timestamp, DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) AS as_value, ma.MON$REMOTE_ADDRESS as REMOTE_ADDRESS, ma.MON$REMOTE_PROCESS as PROCESS, s.MON$SQL_TEXT as SQL_TEXT FROM MON$ATTACHMENTS ma JOIN MON$TRANSACTIONS mt ON ma.MON$ATTACHMENT_ID = mt.MON$ATTACHMENT_ID LEFT JOIN MON$STATEMENTS s ON ma.MON$ATTACHMENT_ID  = s.MON$ATTACHMENT_ID WHERE ma.MON$STATE = 1 AND ma.MON$ATTACHMENT_ID <> CURRENT_CONNECTION AND DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) > 180""") 
+   cursor.execute("""SELECT 'transaction_duration_seconds' AS vector_name, mt.MON$TRANSACTION_ID AS transaction_id,CAST(mt.MON$TIMESTAMP as TIMESTAMP) as transaction_timestamp, DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) AS as_value, ma.MON$REMOTE_ADDRESS as REMOTE_ADDRESS, ma.MON$REMOTE_PROCESS as PROCESS, s.MON$SQL_TEXT as SQL_TEXT FROM MON$ATTACHMENTS ma JOIN MON$TRANSACTIONS mt ON ma.MON$ATTACHMENT_ID = mt.MON$ATTACHMENT_ID LEFT JOIN MON$STATEMENTS s ON ma.MON$ATTACHMENT_ID  = s.MON$ATTACHMENT_ID WHERE ma.MON$STATE = 1 AND ma.MON$ATTACHMENT_ID <> CURRENT_CONNECTION AND DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) > 180""")
    print("# transactions are displayed only with duration > 3 mins")
    print_vector(cursor)
 
@@ -350,7 +350,7 @@ basic_auth_users:
 
 
 ## 3. Prometheus
- 
+
 **prometheus.yml**
 ```
 ...
