@@ -305,7 +305,7 @@ with connect(db_name, user=db_user, password=db_password) as con:
 
    # vectors
    cursor.execute("""SELECT 'transaction_duration_seconds' AS vector_name, mt.MON$TRANSACTION_ID AS transaction_id,CAST(mt.MON$TIMESTAMP as TIMESTAMP) as transaction_timestamp, DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) AS as_value, ma.MON$REMOTE_ADDRESS as REMOTE_ADDRESS, ma.MON$REMOTE_PROCESS as PROCESS, s.MON$SQL_TEXT as SQL_TEXT FROM MON$ATTACHMENTS ma JOIN MON$TRANSACTIONS mt ON ma.MON$ATTACHMENT_ID = mt.MON$ATTACHMENT_ID LEFT JOIN MON$STATEMENTS s ON ma.MON$ATTACHMENT_ID  = s.MON$ATTACHMENT_ID WHERE ma.MON$STATE = 1 AND ma.MON$ATTACHMENT_ID <> CURRENT_CONNECTION AND DATEDIFF(second, mt.MON$TIMESTAMP, current_timestamp) > 180""")
-   print("# transactions are displayed only with duration > 3 mins")
+   print("# transactions details are displayed only with duration > 3 mins")
    print_vector(cursor)
 
    cursor.execute("""SELECT 'info' as vector_name, RDB$GET_CONTEXT('SYSTEM', 'ENGINE_VERSION') as version FROM RDB$DATABASE""")
