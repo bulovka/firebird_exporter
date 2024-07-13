@@ -429,3 +429,7 @@ basic_auth_users:
 ## 4. Grafana dashboard
 
 File [dashboard.json](https://github.com/ldrahnik/firebird_exporter/blob/main/dashboard.json) or on website [21510-firebird](https://grafana.com/grafana/dashboards/21510-firebird/).
+
+# Similar projects
+
+I do not know any.
