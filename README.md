@@ -4,7 +4,7 @@
 ![Maintainer](https://img.shields.io/badge/maintainer-ldrahnik-blue)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20about-anything-1abc9c.svg)](https://github.com/PRO-HOSPITAL/firebird_exporter/issues/new/choose)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fldrahnik%2Ffirebird_exporter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+![Badge](https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FPRO-HOSPITAL%2Ffirebird_exporter&label=Visitors&icon=suit-heart-fill&color=%23e35d6a)
 
 The Firebird exporter for Prometheus is built by a simple script written in Python with the help of [script_exporter](https://github.com/ricoberger/script_exporter) and [filestat_exporter](https://github.com/michael-doubez/filestat_exporter).
 
